@@ -1,28 +1,37 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import styles from './home.style'
-import { Fontisto, Ionicons } from '@expo/vector-icons'
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import styles from "./home.style";
+import { Fontisto, Ionicons } from "@expo/vector-icons";
 
+import { Welcome } from "../components";
+import Carousel from "../components/Home/Carousel";
+import Headings from "../components/Home/Headings";
+import ProductRow from "../components/products/ProductRow";
 
-const Home = () => {
-  return (
-    <SafeAreaView>
-      <View style={styles.appBarWrapper}>
-        <View style={styles.appBar}>
-          <Ionicons name='location-outline' size={24} />
-          <Text style={styles.location}>Sunyani, Ghana</Text>
-          <View style={{alignItems: "flex-end"}}>
-            <View style={styles.cartCount}>
-              <Text style={styles.cartNumber}>6</Text>
-            </View>
-            
+const Home = () => (
+  <SafeAreaView>
+    <View style={styles.appBarWrapper}>
+      <View style={styles.appBar}>
+        <Ionicons name="location-outline" size={24} />
+        <Text style={styles.location}>Sunyani, Ghana</Text>
+        <View style={{ alignItems: "flex-end" }}>
+          <View style={styles.cartCount}>
+            <Text style={styles.cartNumber}>6</Text>
           </View>
+          <TouchableOpacity>
+            <Fontisto name="shopping-bag" size={24} />
+          </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
-  )
-}
+    </View>
+    <ScrollView>
+      <Welcome />
+      <Carousel />
+      <Headings />
+      <ProductRow />
+    </ScrollView>
+  </SafeAreaView>
+);
 
-export default Home
-
+export default Home;
