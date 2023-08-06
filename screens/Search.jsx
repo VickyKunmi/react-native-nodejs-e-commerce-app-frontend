@@ -1,4 +1,5 @@
 import {
+  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
@@ -6,7 +7,6 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { COLORS, SIZES } from "../constants";
 import styles from "./search.style";

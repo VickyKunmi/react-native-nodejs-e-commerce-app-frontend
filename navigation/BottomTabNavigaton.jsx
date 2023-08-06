@@ -25,18 +25,21 @@ const BottomTabNavigaton = () => {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Home" component={Home} options={{
+        headerShown: false,
         tabBarIcon: ({focused}) => {
             return <Ionicons name={focused ?"home" : "home-outline"}
             size={24} color={focused ? COLORS.primary : COLORS.gray2}/>
         }
       }}/>
        <Tab.Screen name="Search" component={Search} options={{
+        headerShown: false,
         tabBarIcon: ({focused}) => {
             return <Ionicons name={"search-sharp"}
             size={24} color={focused ? COLORS.primary : COLORS.gray2}/>
         }
       }}/> 
       <Tab.Screen name="Profile" component={Profile} options={{
+        headerShown: false,
         tabBarIcon: ({focused}) => {
             return <Ionicons name={focused ?"person" : "person-outline"}
             size={24} color={focused ? COLORS.primary : COLORS.gray2}/>

@@ -1,9 +1,7 @@
-import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import { Text, View, TouchableOpacity, SafeAreaView, ScrollView} from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./home.style";
 import { Fontisto, Ionicons } from "@expo/vector-icons";
-
 import { Welcome } from "../components";
 import Carousel from "../components/Home/Carousel";
 import Headings from "../components/Home/Headings";

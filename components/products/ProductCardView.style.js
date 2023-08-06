@@ -4,11 +4,12 @@ import { COLORS, SIZES } from "../../constants";
 
 const styles = StyleSheet.create({
     container: {
-        width: 182,
-        height: 240,
+        width: 180,
+        height: 280,
         marginEnd: 22,
         borderRadius: SIZES.medium,
         backgroundColor: COLORS.secondary,
+        
     },
     imageContainer: {
         flex: 1,
@@ -27,7 +28,24 @@ const styles = StyleSheet.create({
 
     },
     title: {
+        fontFamily: "bold",
+        fontSize: SIZES.large,
+        marginBottom: 2,
+    },
+    supplier: {
+        fontFamily: "regular",
+        fontSize: SIZES.small,
+        color: COLORS.gray,
+    },
+    price: {
+        fontFamily: "bold",
+        fontSize: SIZES.medium,
         
+    },
+    addbtn: {
+        position: "absolute",
+        bottom: SIZES.small,
+        right: SIZES.small,
     }
 })
 
