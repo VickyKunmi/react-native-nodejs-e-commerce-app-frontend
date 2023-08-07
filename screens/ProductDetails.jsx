@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import styles from "./ProductDetails.style";
-import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, Fontisto } from "@expo/vector-icons";
 import { COLORS, SIZES } from "../constants";
 import pic1 from "../assets/images/d1.jpg";
 
@@ -46,7 +46,7 @@ const ProductDetails = ({ navigation }) => {
             <TouchableOpacity onPress={() => increment()}>
               <SimpleLineIcons name="plus" size={20} />
             </TouchableOpacity>
-            <Text> {count} </Text>
+            <Text style={styles.ratingText}> {count} </Text>
             <TouchableOpacity onPress={() => decrement()}>
               <SimpleLineIcons name="minus" size={20} />
             </TouchableOpacity>
@@ -66,12 +66,27 @@ const ProductDetails = ({ navigation }) => {
             or any other special occasion, this gown is your ticket to a truly
             unforgettable evening.
           </Text>
-          <View style={{marginBottom: SIZES.small}}>
+          <View style={{ marginBottom: SIZES.small }}>
             <View style={styles.location}>
-                <Ionicons name="location-outline" size={20}/>
+              <View style={{ flexDirection: "row" }}>
+                <Ionicons name="location-outline" size={20} />
+                <Text>    Sunyani & Kumasi</Text>
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                <MaterialCommunityIcons name="truck-delivery-outline" size={20} />
+                <Text>    Free Delivery</Text>
+              </View>
             </View>
-
           </View>
+        </View>
+
+        <View style={styles.cartRow}>
+          <TouchableOpacity style={styles.cartBtn} onPress={() => {}}>
+            <Text style={styles.cartTitle}>Buy now</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.addCart} onPress={() => {}}>
+            <Fontisto name="shopping-bag" size={22} color={COLORS.lightWhite}/>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
