@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.lightWhite,
+    // marginTop: SIZES.xxLarge,
   },
   upperRow: {
     marginHorizontal: 20,
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
     width: SIZES.width - 44,
   },
   image: {
-    // aspectRatio: 1.635,
+    aspectRatio: 1.5,
     width: SIZES.width,
     resizeMode: "cover",
     // borderRadius: SIZES.medium,

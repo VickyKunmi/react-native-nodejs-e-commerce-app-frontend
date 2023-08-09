@@ -4,8 +4,12 @@ import styles from "./ProductDetails.style";
 import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, Fontisto } from "@expo/vector-icons";
 import { COLORS, SIZES } from "../constants";
 import pic1 from "../assets/images/d1.jpg";
+import { useRoute } from "@react-navigation/native";
 
 const ProductDetails = ({ navigation }) => {
+  const route = useRoute();
+const {item} = route.params;
+  
   const [count, setCount] = useState(1);
   const increment = () => {
     setCount(count + 1);
@@ -27,12 +31,12 @@ const ProductDetails = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <Image source={pic1} style={styles.image} />
+      <Image source={{uri: item.image}} style={styles.image} />
       <View style={styles.details}>
         <View style={styles.titleRow}>
-          <Text style={styles.title}>product</Text>
+          <Text style={styles.title}>{item.title}</Text>
           <View style={styles.priceWrapper}>
-            <Text style={styles.price}>GH₵30</Text>
+            <Text style={styles.price}>GH₵{item.price}</Text>
           </View>
         </View>
         <View style={styles.ratingRow}>
@@ -55,22 +59,13 @@ const ProductDetails = ({ navigation }) => {
         <View style={styles.descriptionWrapper}>
           <Text style={styles.description}>Description</Text>
           <Text style={styles.desText}>
-            Introducing our enchanting Pink Fashionable Flowing Dress, the
-            epitome of elegance and grace, designed to make you feel like a true
-            princess on your special night! This breathtaking Flying Prom Gown
-            is the ultimate embodiment of sophistication, ensuring you'll steal
-            the spotlight as you glide across the dance floor. Designed to
-            flatter all body types, our Pink Fashionable Flowing Dress embraces
-            your unique beauty, making you feel confident and empowered
-            throughout the night. Whether you're attending a prom, formal ball,
-            or any other special occasion, this gown is your ticket to a truly
-            unforgettable evening.
+           {item.description}
           </Text>
           <View style={{ marginBottom: SIZES.small }}>
             <View style={styles.location}>
               <View style={{ flexDirection: "row" }}>
                 <Ionicons name="location-outline" size={20} />
-                <Text>    Sunyani & Kumasi</Text>
+                <Text>    {item.product_location}</Text>
               </View>
               <View style={{ flexDirection: "row" }}>
                 <MaterialCommunityIcons name="truck-delivery-outline" size={20} />
