@@ -4,7 +4,7 @@ import { COLORS, SIZES } from "../../constants";
 
 const styles = StyleSheet.create({
     container: {
-        width: 180,
+        width: 160,
         height: 280,
         marginEnd: 22,
         borderRadius: SIZES.medium,
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         flex: 1,
-        width: 170,
+        width: 150,
         marginLeft: SIZES.small/2,
         marginTop: SIZES.small/2,
         borderRadius: SIZES.small,

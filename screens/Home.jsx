@@ -1,4 +1,10 @@
-import { Text, View, TouchableOpacity, SafeAreaView, ScrollView} from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import React from "react";
 import styles from "./home.style";
 import { Fontisto, Ionicons } from "@expo/vector-icons";
@@ -7,8 +13,9 @@ import Carousel from "../components/Home/Carousel";
 import Headings from "../components/Home/Headings";
 import ProductRow from "../components/products/ProductRow";
 
+
 const Home = () => (
-  <SafeAreaView>
+  <SafeAreaView style={{flex: 1}}>
     <View style={styles.appBarWrapper}>
       <View style={styles.appBar}>
         <Ionicons name="location-outline" size={24} />
@@ -24,10 +31,12 @@ const Home = () => (
       </View>
     </View>
     <ScrollView>
-      <Welcome />
-      <Carousel />
-      <Headings />
-      <ProductRow />
+      
+        <Welcome />
+        <Carousel />
+        <Headings />
+        <ProductRow />
+      
     </ScrollView>
   </SafeAreaView>
 );

@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
         fontFamily: "bold",
         fontSize: 40
     },
+    
     appBarWrapper: {
         marginHorizontal: 22,
         marginTop: SIZES.xxLarge,
@@ -38,7 +39,8 @@ const styles = StyleSheet.create({
         fontSize: 10,
         color: COLORS.lightWhite,
 
-    }
+    },
+    
 })
 
 

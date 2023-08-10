@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home, Profile, Search } from "../screens";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../constants";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,11 +18,17 @@ const screenOptions = {
     right: 0,
     left: 0,
     elevation: 0,
-    height: 70,
+    height: 40,
+    // height: shouldShowNavigationBar ? 70 : 0,
+    
   },
 };
 
 const BottomTabNavigaton = () => {
+
+
+
+
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Home" component={Home} options={{

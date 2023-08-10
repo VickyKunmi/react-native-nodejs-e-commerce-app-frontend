@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
         borderRadius: SIZES.medium,
         marginVertical: SIZES.medium,
         height: 50,
+        marginTop: SIZES.xxLarge,
     },
     searchIcon:{
         marginHorizontal: 10,
