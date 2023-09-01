@@ -13,7 +13,7 @@ const ProductRow = () => {
     <View style={styles.container}>
       {isLoading ? (
         <ActivityIndicator size={SIZES.xxLarge} color={COLORS.primary} />
-      
+
       ): error ? (
         <Text>Something went wrong</Text>
       ): (

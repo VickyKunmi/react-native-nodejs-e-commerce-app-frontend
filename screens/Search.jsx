@@ -1,6 +1,7 @@
 import {
+  FlatList,
+  Image,
   SafeAreaView,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
@@ -11,21 +12,23 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { COLORS, SIZES } from "../constants";
 import styles from "./search.style";
 import axios from "axios";
+import SearchTile from "../components/products/SearchTile";
+import { API_ENDPOINT } from "../config";
+// import { FlatList } from "react-native-gesture-handler";
 
 const Search = () => {
   const [searchKey, setSearchKey] = useState("");
-  const [serachResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
+  console.log(searchResult);
   // http://localhost:3000/api/products/search/${searchKey}
-  const handleSearch = async() => {
+  const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/products/search/${searchKey}`
+        `${API_ENDPOINT}/api/products/search/${searchKey}`
       );
-      console.log("=============================");
-      console.log(response.data);
-      console.log("=============================");
+      setSearchResult(response.data);
     } catch (error) {
-      console.log("failed to get product");
+      console.log("failed to get product", error);
     }
   };
 
@@ -50,12 +53,27 @@ const Search = () => {
         <View>
           <TouchableOpacity
             style={styles.searchbtn}
-            onPress={() => handleSearch}
+            onPress={() => handleSearch()}
           >
             <Feather name="search" size={24} color={COLORS.offwhite} />
           </TouchableOpacity>
         </View>
       </View>
+      {searchResult.length === 0 ? (
+        <View style={{ flex: 1 }}>
+          <Image
+            source={require("../assets/images/Pose23.png")}
+            style={styles.searchImage}
+          />
+        </View>
+      ) : (
+        <FlatList
+          style={{ marginHorizontal: 12 }}
+          data={searchResult}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => <SearchTile item={item} />}
+        />
+      )}
     </SafeAreaView>
   );
 };

@@ -3,6 +3,7 @@ import React from "react";
 import { COLORS } from "../../constants";
 import { SliderBox } from "react-native-image-slider-box";
 
+
 const Carousel = () => {
   const sliders = [
     "https://t3.ftcdn.net/jpg/04/73/89/54/240_F_473895460_Wb36aXG0XJoxSnoRjLskgdv6JQ65DIm6.jpg",

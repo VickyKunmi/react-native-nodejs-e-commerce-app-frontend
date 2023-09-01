@@ -1,15 +1,20 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import styles from "./ProductDetails.style";
-import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, Fontisto } from "@expo/vector-icons";
+import {
+  Ionicons,
+  MaterialCommunityIcons,
+  SimpleLineIcons,
+  Fontisto,
+} from "@expo/vector-icons";
 import { COLORS, SIZES } from "../constants";
 import pic1 from "../assets/images/d1.jpg";
 import { useRoute } from "@react-navigation/native";
+import AddToCart from "../hook/addToCart";
 
 const ProductDetails = ({ navigation }) => {
   const route = useRoute();
-const {item} = route.params;
-  
+  const { item } = route.params;
   const [count, setCount] = useState(1);
   const increment = () => {
     setCount(count + 1);
@@ -31,7 +36,7 @@ const {item} = route.params;
         </TouchableOpacity>
       </View>
 
-      <Image source={{uri: item.image}} style={styles.image} />
+      <Image source={{ uri: item.image }} style={styles.image} />
       <View style={styles.details}>
         <View style={styles.titleRow}>
           <Text style={styles.title}>{item.title}</Text>
@@ -58,18 +63,19 @@ const {item} = route.params;
         </View>
         <View style={styles.descriptionWrapper}>
           <Text style={styles.description}>Description</Text>
-          <Text style={styles.desText}>
-           {item.description}
-          </Text>
+          <Text style={styles.desText}>{item.description}</Text>
           <View style={{ marginBottom: SIZES.small }}>
             <View style={styles.location}>
               <View style={{ flexDirection: "row" }}>
                 <Ionicons name="location-outline" size={20} />
-                <Text>    {item.product_location}</Text>
+                <Text> {item.product_location}</Text>
               </View>
               <View style={{ flexDirection: "row" }}>
-                <MaterialCommunityIcons name="truck-delivery-outline" size={20} />
-                <Text>    Free Delivery</Text>
+                <MaterialCommunityIcons
+                  name="truck-delivery-outline"
+                  size={20}
+                />
+                <Text> Free Delivery</Text>
               </View>
             </View>
           </View>
@@ -79,8 +85,11 @@ const {item} = route.params;
           <TouchableOpacity style={styles.cartBtn} onPress={() => {}}>
             <Text style={styles.cartTitle}>Buy now</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.addCart} onPress={() => {}}>
-            <Fontisto name="shopping-bag" size={22} color={COLORS.lightWhite}/>
+          <TouchableOpacity
+            style={styles.addCart}
+            onPress={() => AddToCart(item._id,count)}
+          >
+            <Fontisto name="shopping-bag" size={22} color={COLORS.lightWhite} />
           </TouchableOpacity>
         </View>
       </View>
