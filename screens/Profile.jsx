@@ -55,7 +55,6 @@ const Profile = ({ navigation }) => {
       {
         text: "Continue", onPress: ()=> userLogout()
       },
-      // {defaultIndex : 1}
     ]
     )
   }

@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     },
     wrapper: {
         marginBottom: 20,
-        // marginHorizontal: 20,
     },
     label: {
         fontFamily: "regular",

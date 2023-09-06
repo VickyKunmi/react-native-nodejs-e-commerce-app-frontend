@@ -1,8 +1,8 @@
 import Welcome from "./Home/Welcome";
 import ProductList from "./products/ProductList";
-// import ProductCardView from "./products/ProductCardView";
 import ProductRow from "./products/ProductRow";
 import BackBtn from "./BackBtn";
 import Button from "./Button";
+ import CartTile from "./cart/cartTile";
 
-export {Welcome, ProductList, ProductRow, BackBtn, Button}
+export {Welcome, ProductList, ProductRow, BackBtn, Button, CartTile}

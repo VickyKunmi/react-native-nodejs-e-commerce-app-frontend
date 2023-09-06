@@ -10,7 +10,6 @@ const useFetch = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      // const response = await axios.get("http://localhost:3000/api/products/");
       const response = await axios.get(
         `${API_ENDPOINT}/api/products/`
       );

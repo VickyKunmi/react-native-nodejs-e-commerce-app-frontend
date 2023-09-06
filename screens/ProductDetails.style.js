@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.lightWhite,
-    // marginTop: SIZES.xxLarge,
   },
   upperRow: {
     marginHorizontal: 20,
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1.5,
     width: SIZES.width,
     resizeMode: "cover",
-    // borderRadius: SIZES.medium,
+    
   },
   details: {
     marginTop: -SIZES.small,
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.secondary,
     padding: 5,
     borderRadius: SIZES.large,
-    // marginHorizontal: 12,
+    
   },
   ratingText: {
     color: COLORS.gray,

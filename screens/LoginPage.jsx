@@ -67,45 +67,7 @@ const LoginPage = ({ navigation }) => {
       setLoader(false);
     }
   };
-  
-
-  // const login = async (values) => {
-  //   setLoader(true);
-  //   try {
-  //     const endpoint = "http://192.168.21.172:3000/api/login";
-  //     const data = values;
-
-  //     const response = await axios.post(endpoint, data);
-  //     if (response.status === 200) {
-  //       setLoader(false);
-  //       setResponseData(response.data);
-  //       // console.log(`user${responseData._id}`)
-  //       await AsyncStorage.setItem(
-
-  //         `user${responseData._id}`,
-  //         JSON.stringify(responseData)
-  //       );
-  //       // await AsyncStorage.getItem('')
-  //       await AsyncStorage.setItem("id", JSON.stringify(responseData._id));
-  //       navigation.replace("Bottom Navigation");
-
-  //       // const newUser = await AsyncStorage.getItem(`user${responseData._id}`)
-  //       // console.log(newUser)
-  //     } else {
-  //       Alert.alert("Error logging in", "Please provide valid credentials", [
-  //         { defaultIndex: 1 },
-  //       ]);
-  //     }
-  //   } catch (error) {
-  //     Alert.alert(
-  //       "Error",
-  //       "Oops error logging in try again with correct credentials!",
-  //       [{ defaultIndex: 1 }]
-  //     );
-  //   } finally {
-  //     setLoader(false);
-  //   }
-  // };
+ 
 
   return (
     <ScrollView>

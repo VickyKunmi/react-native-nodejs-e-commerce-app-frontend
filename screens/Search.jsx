@@ -20,7 +20,6 @@ const Search = () => {
   const [searchKey, setSearchKey] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   console.log(searchResult);
-  // http://localhost:3000/api/products/search/${searchKey}
   const handleSearch = async () => {
     try {
       const response = await axios.get(
