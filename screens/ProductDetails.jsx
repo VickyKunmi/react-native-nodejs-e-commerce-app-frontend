@@ -19,6 +19,7 @@ const ProductDetails = ({ navigation }) => {
   const [count, setCount] = useState(1);
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [favourites, setFavourite] = useState(false);
+  const [paymentUrl, setPaymentUrl] = useState(false);
 
   const increment = () => {
     setCount(count + 1);
@@ -48,6 +49,29 @@ const ProductDetails = ({ navigation }) => {
       console.log(error);
     }
   };
+
+  const createCheckOut = async () => {
+    const id = await AsyncStorage.getItem('id')
+    const response = await fetch('https://e-commercepayment-production.up.railway.app/stripe/create-checkout-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: JSON.parse(id),
+        cartItem: [
+          {
+            name: item.title,
+            id: item._id,
+            price: item.price,
+            cartQuantity: count,
+          }
+        ]
+      })
+    });
+    const {url} = await response.json();
+    setPaymentUrl(url);
+  }
 
   const addToFavourites = async () => {
     const id = await AsyncStorage.getItem("id");
