@@ -3,14 +3,14 @@ import React from "react";
 import { TouchableOpacity } from "react-native";
 import { COLORS, SIZES } from "../constants";
 
-const Button = ({ title, onPress, isValid, loader }) => {
+const Button = ({ title, onPress, isValid, loader,showTotalPrice, totalPrice }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={styles.btnstyle(isValid === false ? COLORS.gray : COLORS.primary)}
     >
       {loader === false ? (
-        <Text style={styles.btnText}>{title}</Text>
+        <Text style={styles.btnText}>{title} {showTotalPrice ? `($${totalPrice})` : ''}</Text>
       ) : (
         <ActivityIndicator />
       )}

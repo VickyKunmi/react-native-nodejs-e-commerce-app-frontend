@@ -3,18 +3,19 @@ import { useEffect, useState } from "react";
 import { API_ENDPOINT } from "../config";
 import axios from "axios";
 
-const FetchCart = () => {
+const FetchOrders = () => {
   const [data, setData] = useState([]);
   const [loading, setLoader] = useState(false);
   const [error, setError] = useState(null);
-  const [cartCount, setCartCount] = useState(0);
+  
+
 
   const fetchData = async () => {
     setLoader(true);
     const token = await AsyncStorage.getItem("token");
 
     try {
-      const endpoint = `${API_ENDPOINT}/api/carts/find`;
+      const endpoint = `${API_ENDPOINT}/api/orders`;
 
       const headers = {
         "Content-Type": "application/json",
@@ -23,16 +24,11 @@ const FetchCart = () => {
 
       const response = await axios.get(endpoint, { headers });
 
-      if (response.status === 200 && response.data.message === "Cart is empty") {
-        
-        setData(null);
-        setCartCount(0);
-      }  else if (response.status === 200) {
-        const cartProducts = response.data.products;
-        setData(cartProducts);
-        setCartCount(cartProducts.length);
-      }
+    //   const cartProducts = response.data.products;
 
+      setData(response.data);
+      
+      
       setLoader(false);
     } catch (error) {
       console.error("Error fetching cart data:", error);
@@ -42,17 +38,17 @@ const FetchCart = () => {
       setLoader(false);
     }
   };
-
-  const refetch = () => {
-    fetchData();
-  };
-
+  
   useEffect(() => {
     fetchData();
   }, []);
 
-  return { data, loading, error, refetch, cartCount };
+  const refetch = () => {
+    setLoader(true)
+    fetchData();
+  };
+
+
+  return { data, loading, error, refetch };
 };
-
-export default FetchCart;
-
+export default FetchOrders;

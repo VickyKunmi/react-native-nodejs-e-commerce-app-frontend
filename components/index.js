@@ -4,5 +4,5 @@ import ProductRow from "./products/ProductRow";
 import BackBtn from "./BackBtn";
 import Button from "./Button";
  import CartTile from "./cart/cartTile";
-
-export {Welcome, ProductList, ProductRow, BackBtn, Button, CartTile}
+import OrderTile from "./orderTile";
+export {Welcome, OrderTile, ProductList, ProductRow, BackBtn, Button, CartTile}

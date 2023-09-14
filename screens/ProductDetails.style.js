@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.lightWhite,
+    marginTop: 20,
   },
   upperRow: {
     marginHorizontal: 20,
@@ -122,6 +123,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.black,
     alignItems: "center",
     justifyContent: "center",
+  },
+  wrapper: {
+    flex: 1,
+    backgroundColor: COLORS.lightWhite,
   }
 });
 

@@ -3,7 +3,12 @@ import { COLORS, SHADOWS, SIZES } from "../constants";
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
+    flex: 1,
+    backgroundColor: COLORS.lightWhite,
+    marginTop: 20,
+  },
+  content: {
+    marginTop: 10,
     marginHorizontal: 20,
   },
   titleRow: {
@@ -58,6 +63,12 @@ const styles = StyleSheet.create({
     color: COLORS.gray,
     marginTop: 3,
     textTransform: "capitalize",
+  },
+  orders: {
+    paddingHorizontal: 30,
+    backgroundColor: COLORS.lightWhite,
+    borderRadius: 12,
+    
   },
 });
 

@@ -12,6 +12,8 @@ import pic1 from "../assets/images/d1.jpg";
 import { useRoute } from "@react-navigation/native";
 import AddToCart from "../hook/addToCart";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SafeAreaView } from "react-native";
+import WebView from "react-native-webview";
 
 const ProductDetails = ({ navigation }) => {
   const route = useRoute();
@@ -20,7 +22,7 @@ const ProductDetails = ({ navigation }) => {
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [favourites, setFavourite] = useState(false);
   const [paymentUrl, setPaymentUrl] = useState(false);
-
+  
   const increment = () => {
     setCount(count + 1);
   };
@@ -51,27 +53,46 @@ const ProductDetails = ({ navigation }) => {
   };
 
   const createCheckOut = async () => {
-    const id = await AsyncStorage.getItem('id')
-    const response = await fetch('https://e-commercepayment-production.up.railway.app/stripe/create-checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId: JSON.parse(id),
-        cartItem: [
-          {
-            name: item.title,
-            id: item._id,
-            price: item.price,
-            cartQuantity: count,
-          }
-        ]
-      })
-    });
-    const {url} = await response.json();
+    const id = await AsyncStorage.getItem("id");
+    const response = await fetch(
+      "https://e-commercepayment-production.up.railway.app/stripe/create-checkout-session",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: JSON.parse(id),
+          cartItems: [
+            {
+              name: item.title,
+              id: item._id,
+              price: item.price,
+              cartQuantity: count,
+            },
+          ],
+        }),
+      }
+    );
+    
+    const { url } = await response.json();
     setPaymentUrl(url);
-  }
+//     try {
+//   const { url } = await response.json();
+//   setPaymentUrl(url);
+// } catch (error) {
+//   console.error("Error parsing JSON:", error);
+// }
+  };
+
+  const onNavigationStateChange = (webViewState) => {
+    const { url } = webViewState;
+    if (url && url.includes("checkout-success")) {
+      navigation.navigate("Orders");
+    } else if (url && url.includes("cancel")) {
+      navigation.goBack();
+    }
+  };
 
   const addToFavourites = async () => {
     const id = await AsyncStorage.getItem("id");
@@ -118,7 +139,7 @@ const ProductDetails = ({ navigation }) => {
     if (!isLoggedin) {
       navigation.navigate("Login");
     } else {
-      console.log("pressesdBuy");
+      createCheckOut();
     }
   };
 
@@ -157,73 +178,94 @@ const ProductDetails = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.upperRow}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="chevron-back-circle" size={30} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress()}>
-          <Ionicons
-            name={favourites ? "heart" : "heart-outline"}
-            size={30}
-            color={COLORS.primary}
+      {paymentUrl ? (
+        <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+          <WebView
+            source={{ uri: paymentUrl }}
+            onNavigationStateChange={onNavigationStateChange}
           />
-        </TouchableOpacity>
-      </View>
+        </SafeAreaView>
+      ) : (
+        <View style={styles.wrapper}>
+          <View style={styles.upperRow}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Ionicons name="chevron-back-circle" size={30} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress()}>
+              <Ionicons
+                name={favourites ? "heart" : "heart-outline"}
+                size={30}
+                color={COLORS.primary}
+              />
+            </TouchableOpacity>
+          </View>
 
-      <Image source={{ uri: item.image }} style={styles.image} />
-      <View style={styles.details}>
-        <View style={styles.titleRow}>
-          <Text style={styles.title}>{item.title}</Text>
-          <View style={styles.priceWrapper}>
-            <Text style={styles.price}>GH₵{item.price}</Text>
-          </View>
-        </View>
-        <View style={styles.ratingRow}>
-          <View style={styles.rating}>
-            {[1, 2, 3, 4, 5].map((index) => (
-              <Ionicons key={index} name="star" size={24} color="gold" />
-            ))}
-            <Text> (4.9)</Text>
-          </View>
-          <View style={styles.rating}>
-            <TouchableOpacity onPress={() => increment()}>
-              <SimpleLineIcons name="plus" size={20} />
-            </TouchableOpacity>
-            <Text style={styles.ratingText}> {count} </Text>
-            <TouchableOpacity onPress={() => decrement()}>
-              <SimpleLineIcons name="minus" size={20} />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.descriptionWrapper}>
-          <Text style={styles.description}>Description</Text>
-          <Text style={styles.desText}>{item.description}</Text>
-          <View style={{ marginBottom: SIZES.small }}>
-            <View style={styles.location}>
-              <View style={{ flexDirection: "row" }}>
-                <Ionicons name="location-outline" size={20} />
-                <Text> {item.product_location}</Text>
+          <Image source={{ uri: item.image }} style={styles.image} />
+          <View style={styles.details}>
+            <View style={styles.titleRow}>
+              <Text style={styles.title}>{item.title}</Text>
+              <View style={styles.priceWrapper}>
+                <Text style={styles.price}>${item.price}</Text>
               </View>
-              <View style={{ flexDirection: "row" }}>
-                <MaterialCommunityIcons
-                  name="truck-delivery-outline"
-                  size={20}
+            </View>
+            <View style={styles.ratingRow}>
+              <View style={styles.rating}>
+                {[1, 2, 3, 4, 5].map((index) => (
+                  <Ionicons key={index} name="star" size={24} color="gold" />
+                ))}
+                <Text> (4.9)</Text>
+              </View>
+              <View style={styles.rating}>
+                <TouchableOpacity onPress={() => increment()}>
+                  <SimpleLineIcons name="plus" size={20} />
+                </TouchableOpacity>
+                <Text style={styles.ratingText}> {count} </Text>
+                <TouchableOpacity onPress={() => decrement()}>
+                  <SimpleLineIcons name="minus" size={20} />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.descriptionWrapper}>
+              <Text style={styles.description}>Description</Text>
+              <Text style={styles.desText}>{item.description}</Text>
+              <View style={{ marginBottom: SIZES.small }}>
+                <View style={styles.location}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Ionicons name="location-outline" size={20} />
+                    <Text> {item.product_location}</Text>
+                  </View>
+                  <View style={{ flexDirection: "row" }}>
+                    <MaterialCommunityIcons
+                      name="truck-delivery-outline"
+                      size={20}
+                    />
+                    <Text> Free Delivery</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.cartRow}>
+              <TouchableOpacity
+                style={styles.cartBtn}
+                onPress={() => handleBuy()}
+              >
+                <Text style={styles.cartTitle}>Buy now</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.addCart}
+                onPress={() => handleCart()}
+              >
+                <Fontisto
+                  name="shopping-bag"
+                  size={22}
+                  color={COLORS.lightWhite}
                 />
-                <Text> Free Delivery</Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
-
-        <View style={styles.cartRow}>
-          <TouchableOpacity style={styles.cartBtn} onPress={() => handleBuy()}>
-            <Text style={styles.cartTitle}>Buy now</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.addCart} onPress={() => handleCart()}>
-            <Fontisto name="shopping-bag" size={22} color={COLORS.lightWhite} />
-          </TouchableOpacity>
-        </View>
-      </View>
+      )}
     </View>
   );
 };

@@ -25,7 +25,7 @@ const CartTile = ({ item, onPress, select, onDelete }) => {
           {item.quantity} item(s)
         </Text>
         <Text style={styles.productTxt} numberOfLines={1}>
-          GH₵{(item.cartItem.price * item.quantity).toFixed(2)}
+          ${(item.cartItem.price * item.quantity).toFixed(2)}
         </Text>
       </View>
       <TouchableOpacity

@@ -7,6 +7,8 @@ import { Image } from "react-native";
 import { AntDesign, MaterialCommunityIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { API_ENDPOINT } from "../config";
 
 const Profile = ({ navigation }) => {
   const [userData, setUserData] = useState(null);
@@ -43,7 +45,17 @@ const Profile = ({ navigation }) => {
     }
   }
 
-
+  const cacheClear = async()=> {
+    const id = await AsyncStorage.getItem('id')
+    const userId = `favourites${JSON.parse(id)}`;
+    try {
+      await AsyncStorage.removeItem(userId);
+      navigation.replace("Bottom Navigation")
+    } catch (error) {
+      console.log("Error login out this user: ", error)
+       
+    }
+  }
 
 
   const logout = () => {
@@ -66,9 +78,9 @@ const Profile = ({ navigation }) => {
         text: "Cancel", onPress: ()=> console.log("cancel clear cache")
       },
       {
-        text: "Continue", onPress: ()=> console.log("Clear cache")
-      },
-      {defaultIndex : 1}
+        text: "Continue", onPress: ()=> cacheClear()
+      }
+      
     ]
     )
   }
@@ -79,9 +91,24 @@ const Profile = ({ navigation }) => {
         text: "Cancel", onPress: ()=> console.log("cancel pressed")
       },
       {
-        text: "Continue", onPress: ()=> console.log("continue")
+        text: "Continue", 
+          onPress: async () => {
+            try {
+              const id = await AsyncStorage.getItem('id');
+  
+              const response = await axios.delete(`${API_ENDPOINT}/users/${id}`);
+              
+              if (response.status === 200) {
+                Alert.alert("User account deleted successfully")
+              } else {
+                console.log("Failed to delete user account");
+              }
+            } catch (error) {
+              console.error("Error deleting user account:", error);
+             
+            }
+        },
       },
-      {defaultIndex : 1}
     ]
     )
   }

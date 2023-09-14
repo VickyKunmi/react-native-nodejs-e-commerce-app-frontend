@@ -177,6 +177,7 @@ const LoginPage = ({ navigation }) => {
                   title={"L O G I N"}
                   onPress={isValid ? handleSubmit : invalidForm}
                   isValid={isValid}
+                  showTotalPrice={false}
                 />
                 <Text
                   onPress={() => {
