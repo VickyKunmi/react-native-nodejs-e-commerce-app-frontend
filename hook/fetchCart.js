@@ -8,6 +8,8 @@ const FetchCart = () => {
   const [loading, setLoader] = useState(false);
   const [error, setError] = useState(null);
   const [cartCount, setCartCount] = useState(0);
+  const [unauthorizedError, setUnauthorizedError] = useState(false); // New state
+
 
   const fetchData = async () => {
     setLoader(true);
@@ -36,7 +38,12 @@ const FetchCart = () => {
       setLoader(false);
     } catch (error) {
       console.error("Error fetching cart data:", error);
-      setError(error);
+      if (error.response && error.response.status === 403) {
+        setUnauthorizedError(true);
+      } else{
+        setError(error);
+      }
+      // setError(error);
       setLoader(false);
     } finally {
       setLoader(false);
@@ -44,6 +51,7 @@ const FetchCart = () => {
   };
 
   const refetch = () => {
+    setUnauthorizedError(false);
     fetchData();
   };
 
@@ -51,7 +59,7 @@ const FetchCart = () => {
     fetchData();
   }, []);
 
-  return { data, loading, error, refetch, cartCount };
+  return { data, loading, error, refetch, cartCount, unauthorizedError };
 };
 
 export default FetchCart;

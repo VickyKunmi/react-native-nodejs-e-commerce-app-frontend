@@ -21,7 +21,18 @@ const Home = ({navigation}) => {
   const [userData, setUserData] = useState(null);
   const [userLogin, setUserLogin] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(0);
-  const {data, refetch} = FetchCart();
+  const {data, refetch, unauthorizedError} = FetchCart();
+  const [isAuthorized, setIsAuthorized] = useState(true);
+
+
+  useEffect(() => {
+    if (unauthorizedError) {
+      setIsAuthorized(false);
+    } else{
+      setIsAuthorized(true);
+    }
+  }, [unauthorizedError]);
+
 
   useEffect(() => {
     checkExistingUser();

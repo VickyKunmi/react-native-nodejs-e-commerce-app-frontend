@@ -19,14 +19,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import WebView from "react-native-webview";
 
 const Cart = ({ navigation }) => {
-  const { data, loading, error, refetch} = FetchCart();
+  const { data, loading, error, refetch, unauthorizedError} = FetchCart();
   const [selected, setSelected] = useState(null);
   const [select, setSelect] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [paymentUrl, setPaymentUrl] = useState(false);
   const [isLoggedin, setIsLoggedin] = useState(false);
-  
 
+  useEffect(() => {
+    if(unauthorizedError) {
+      navigation.navigate("Login");
+    }
+  }, [unauthorizedError, navigation]);
  
   useEffect(() => {
     if (data) {
